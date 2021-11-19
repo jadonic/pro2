@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Gewichterliste</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.css') }} ">
+</head>
+<body>
+<!-- navbar von https://getbootstrap.com/docs/5.0/components/navbar/ -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <div class="container-fluid2">
+    <a class="navbar-brand" href="#">PROG2 Nicolas Steiger</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" href="{{ url_for('hello_post') }}">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="{{ url_for('gewichterliste') }}">Gewichterliste</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('matte1') }}">Kämpfe</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<div class="container-fluid mt-5">
+    <h1>57kg</h1>
+    <ul class="list-group">
+        {% for key in gewichtsklassen57 %}
+            <li class="list-group-item">{{ key }}</li>
+        {% endfor %}
+    </ul>
+    <hr class="divider my-10"/>
+    <h1>65kg</h1>
+    <ul class="list-group">
+        {% for key in gewichtsklassen65 %}
+            <li class="list-group-item">{{ key }}</li>
+        {% endfor %}
+    </ul>
+    <hr class="divider my-10"/>
+    <h1>70kg</h1>
+    <ul class="list-group">
+        {% for key in gewichtsklassen70 %}
+            <li class="list-group-item">{{ key }}</li>
+        {% endfor %}
+    </ul>
+    <hr class="divider my-10"/>
+    <h1>79kg</h1>
+        <ul class="list-group">
+            {% for key in gewichtsklassen79 %}
+                <li class="list-group-item">{{ key }}</li>
+            {% endfor %}
+        </ul>
+    <hr class="divider my-10"/>
+    <h1>96kg</h1>
+        <ul class="list-group">
+            {% for key in gewichtsklassen96 %}
+                <li class="list-group-item">{{ key }}</li>
+            {% endfor %}
+        </ul>
+    <hr class="divider my-10"/>
+    <h1>130kg</h1>
+        <ul class="list-group">
+            {% for key in gewichtsklassen130 %}
+                <li class="list-group-item">{{ key }}</li>
+            {% endfor %}
+        </ul>
+    <a href="{{ url_for('matte1') }}" class="btn btn-primary mt-5">Kämpfe simulieren</a>
+</div>
+</body>
+</html>

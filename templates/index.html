@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>"Testtitel123</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.css') }} ">
+</head>
+<body id="page-top">
+<!-- navbar von https://getbootstrap.com/docs/5.0/components/navbar/ -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <div class="container-fluid2">
+    <a class="navbar-brand" href="#">PROG2 Nicolas Steiger</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{{ url_for('hello_post') }}">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('gewichterliste') }}">Gewichterliste</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('matte1') }}">Kämpfe</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<div class="container-fluid">
+
+<form method="POST">
+    <div class="form-group">
+        <input type="text" class="form-control mt-3" id="formGroupExampleInput" name="vollername" placeholder="Vorname Nachname">
+        <input type="text" class="form-control mt-1" id="formGroupExampleInput2" name="gewicht" placeholder="Gewicht">
+        <input type="submit" class="btn btn-primary mt-1" value="Eintragen" name="eintragen">
+        <input type="submit" class="btn btn-primary mt-1" value="Gewichte Anzeigen" name="gewichteanzeigen">
+    </div>
+    <a href="{{ url_for('gewichterliste') }}" class="btn btn-success">Listen anzeigen</a>
+</form>
+</div>
+</body>
+</html>
