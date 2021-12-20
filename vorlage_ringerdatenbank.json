@@ -1,0 +1,30 @@
+{
+        "land":"",
+        "lizenzID":"",
+        "nachname":"",
+        "turniere":[
+            {
+                "weltmeisterschaft_freistil":{
+                    "gewicht":"",
+                    "gewichtsklasse":"",
+                    "kampfhistorie":[
+                        {
+                            "eigenpunkte":"",
+                            "gegnerpunkte":"",
+                            "kampfID":"",
+                            "kampfnr":"",
+                            "lizenzID":"",
+                            "runde":"",
+                            "sieg":"",
+                            "siegesart":""
+                        }
+                    ],
+                    "losnummer":"",
+                    "niederlagen":"",
+                    "rang":"",
+                    "siege":""
+                }
+            }
+        ],
+        "vorname":""
+}

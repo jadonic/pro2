@@ -28,49 +28,30 @@
     </div>
   </div>
 </nav>
-<div class="container-fluid mt-5">
-    <h1>57kg</h1>
-    <ul class="list-group">
-        {% for key in gewichtsklassen57 %}
-            <li class="list-group-item">{{ key }}</li>
+
+<div class="m-5">
+    <table class="table table-striped">
+        <thead class="thead-dark">
+        <th scope="col" class="vw-2">#</th>
+        <th scope="col">Vorname</th>
+        <th scope="col">Nachname</th>
+        <th scope="col">Nationalität</th>
+        </thead>
+        <tbody>
+        {% for eintrag in ringerliste %}
+            <tr>
+                <td class="vw-2">{{ eintrag[0] }}</td>
+                <td>{{ eintrag[1] }}</td>
+                <td>{{ eintrag[2] }}</td>
+                <td>{{ eintrag[3] }}</td>
+            </tr>
         {% endfor %}
-    </ul>
-    <hr class="divider my-10"/>
-    <h1>65kg</h1>
-    <ul class="list-group">
-        {% for key in gewichtsklassen65 %}
-            <li class="list-group-item">{{ key }}</li>
-        {% endfor %}
-    </ul>
-    <hr class="divider my-10"/>
-    <h1>70kg</h1>
-    <ul class="list-group">
-        {% for key in gewichtsklassen70 %}
-            <li class="list-group-item">{{ key }}</li>
-        {% endfor %}
-    </ul>
-    <hr class="divider my-10"/>
-    <h1>79kg</h1>
-        <ul class="list-group">
-            {% for key in gewichtsklassen79 %}
-                <li class="list-group-item">{{ key }}</li>
-            {% endfor %}
-        </ul>
-    <hr class="divider my-10"/>
-    <h1>96kg</h1>
-        <ul class="list-group">
-            {% for key in gewichtsklassen96 %}
-                <li class="list-group-item">{{ key }}</li>
-            {% endfor %}
-        </ul>
-    <hr class="divider my-10"/>
-    <h1>130kg</h1>
-        <ul class="list-group">
-            {% for key in gewichtsklassen130 %}
-                <li class="list-group-item">{{ key }}</li>
-            {% endfor %}
-        </ul>
-    <a href="{{ url_for('matte1') }}" class="btn btn-primary mt-5">Kämpfe simulieren</a>
+        </tbody>
+    </table>
 </div>
+<div class="m-5">
+    <a href="{{ url_for('matte1') }}" class="btn btn-success">Kämpfe durchführen</a>
+</div>
+
 </body>
 </html>
