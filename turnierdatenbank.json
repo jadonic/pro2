@@ -12,19 +12,28 @@
                         },
                         {
                             "gewicht":65,
-                            "teilnehmer":[]
+                            "teilnehmer":[
+                                100000
+                            ]
                         },
                         {
                             "gewicht":70,
-                            "teilnehmer":[]
+                            "teilnehmer":[
+                                100003
+                            ]
                         },
                         {
                             "gewicht":79,
-                            "teilnehmer":[]
+                            "teilnehmer":[
+                                100001,
+                                100004
+                            ]
                         },
                         {
                             "gewicht":96,
-                            "teilnehmer":[]
+                            "teilnehmer":[
+                                100002
+                            ]
                         },
                         {
                             "gewicht":130,

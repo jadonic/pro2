@@ -1,77 +1,77 @@
 [
     {
-        "land":"Albanien",
-        "nachname":"Ulber",
-        "ringerID":100001,
+        "land":"Schweiz",
+        "nachname":"Steiger",
+        "ringerID":100000,
         "turniere":[
             {
                 "weltmeisterschaft_freistil":{
-                    "gewicht":60,
-                    "gewichtsklasse":61,
-                    "losnummer":12
+                    "gewicht":63,
+                    "gewichtsklasse":65,
+                    "losnummer":62
                 }
             }
         ],
-        "vorname":"Patrick"
-    },
-    {
-        "land":"Russland",
-        "nachname":"Farrer",
-        "ringerID":100001,
-        "turniere":[
-            {
-                "weltmeisterschaft_freistil":{
-                    "gewicht":12,
-                    "gewichtsklasse":61,
-                    "losnummer":38
-                }
-            }
-        ],
-        "vorname":"Andri"
+        "vorname":"Janis"
     },
     {
         "land":"Schweiz",
-        "nachname":"Becker",
+        "nachname":"Steiger",
         "ringerID":100001,
         "turniere":[
             {
                 "weltmeisterschaft_freistil":{
-                    "gewicht":52,
-                    "gewichtsklasse":61,
+                    "gewicht":73,
+                    "gewichtsklasse":79,
+                    "losnummer":77
+                }
+            }
+        ],
+        "vorname":"Nicolas"
+    },
+    {
+        "land":"Schweiz",
+        "nachname":"Steiger",
+        "ringerID":100002,
+        "turniere":[
+            {
+                "weltmeisterschaft_freistil":{
+                    "gewicht":81,
+                    "gewichtsklasse":96,
+                    "losnummer":70
+                }
+            }
+        ],
+        "vorname":"Dominik"
+    },
+    {
+        "land":"Liechtenstein",
+        "nachname":"Freuler",
+        "ringerID":100003,
+        "turniere":[
+            {
+                "weltmeisterschaft_freistil":{
+                    "gewicht":69,
+                    "gewichtsklasse":70,
+                    "losnummer":88
+                }
+            }
+        ],
+        "vorname":"Flavio"
+    },
+    {
+        "land":"Schweiz",
+        "nachname":"Zogg",
+        "ringerID":100004,
+        "turniere":[
+            {
+                "weltmeisterschaft_freistil":{
+                    "gewicht":74,
+                    "gewichtsklasse":79,
                     "losnummer":25
                 }
             }
         ],
-        "vorname":"Marc"
-    },
-    {
-        "land":"T\u00fcrkei",
-        "nachname":"Halter",
-        "ringerID":100001,
-        "turniere":[
-            {
-                "weltmeisterschaft_freistil":{
-                    "gewicht":86,
-                    "gewichtsklasse":96,
-                    "losnummer":79
-                }
-            }
-        ],
-        "vorname":"Janina"
-    },
-    {
-        "land":"husoland",
-        "nachname":"Celikten",
-        "ringerID":100001,
-        "turniere":[
-            {
-                "weltmeisterschaft_freistil":{
-                    "gewicht":79,
-                    "gewichtsklasse":79,
-                    "losnummer":20
-                }
-            }
-        ],
-        "vorname":"B\u00fcsra"
+        "vorname":"Maurus"
     }
 ]
