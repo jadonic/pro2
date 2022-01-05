@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>"Testtitel123</title>
+    <title>Teilnehmer erfassen</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.css') }} ">
 </head>
-<body id="page-top">
+<body id=age-top">
 <!-- navbar von https://getbootstrap.com/docs/5.0/components/navbar/ -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
   <div class="container-fluid2">
@@ -16,31 +16,64 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="{{ url_for('hello_post') }}">Home</a>
+          <a class="nav-link active" aria-current="page" href="{{ url_for('hello_post') }}">Teilnehmer</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{ url_for('gewichterliste') }}">Gewichterliste</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{ url_for('matte1') }}">Kämpfe</a>
+          <a class="nav-link" href="{{ url_for('rangliste') }}">Rangliste</a>
         </li>
       </ul>
     </div>
   </div>
 </nav>
+{% if anzahlringer < 8 %}
 <div class="container-fluid">
-
+    <h1 class="mt-5">Bitte einen Ringer eintragen.</h1>
+    <p>Sie können entweder über die Eingabefelder einen Ringer manuell erfassen, oder über den Button "Zufälligen Ringer erstellen" direkt einen eintragen lassen.</p>
 <form method="POST">
-    <div class="form-group">
-        <input type="text" class="form-control mt-3" id="formGroupExampleInput1" name="vorname" placeholder="Vorname">
-        <input type="text" class="form-control mt-1" id="formGroupExampleInput2" name="nachname" placeholder="Nachname">
-        <input type="text" class="form-control mt-1" id="formGroupExampleInput3" name="land" placeholder="Nationalität">
-        <input type="text" class="form-control mt-1" id="formGroupExampleInput4" name="gewicht" placeholder="Gewicht">
-        <input type="submit" class="btn btn-primary mt-1" value="Eintragen" name="eintragen">
-        <input type="submit" class="btn btn-primary mt-1" value="Gewichte Anzeigen" name="gewichteanzeigen">
+    <div class="form-group row align-items-start">
+        <input type="text" class="form-control mt-1 mr-1 col-3" id="formGroupExampleInput1" name="vorname" placeholder="Vorname">
+        <input type="text" class="form-control mt-1 col-3" id="formGroupExampleInput2" name="nachname" placeholder="Nachname">
+        <input type="text" class="form-control mt-1 mr-5 col-6" id="formGroupExampleInput3" name="land" placeholder="Nationalität">
+        <input type="text" class="form-control mt-1 col-6" id="formGroupExampleInput4" name="gewicht" placeholder="Gewicht">
+        <input type="submit" class="btn btn-primary mt-1 ml-3" value="Eintragen" name="eintragen">
+        <p class="m-2 mt-3">oder</p>
+        <input type="submit" class="btn btn-danger mt-1" value="Zufälligen Ringer erstellen" name="zufaellig">
     </div>
-    <a href="{{ url_for('gewichterliste') }}" class="btn btn-success">Listen anzeigen</a>
 </form>
 </div>
+{% endif %}
+<div class="ml-5 mt-5">
+    <h1>Gewichtsklasse 74kg</h1>
+    <p>Es sind {{ anzahlringer }} von 8 Ringer erfasst!</p>
+</div>
+<div class="ml-5 mr-5 col-6">
+    <table class="table table-striped">
+        <thead class="thead-dark">
+        <th style="width: 10%" scope="col">Losnummer</th>
+        <th style="width: 30%" scope="col">Vorname</th>
+        <th style="width: 30%" scope="col">Nachname</th>
+        <th style="width: 30%" scope="col">Nationalität</th>
+        </thead>
+        <tbody>
+        {% for eintrag in ringerliste %}
+            <tr>
+                <td class="vw-2">{{ eintrag[0] }}</td>
+                <td>{{ eintrag[1] }}</td>
+                <td>{{ eintrag[2] }}</td>
+                <td>{{ eintrag[3] }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% if anzahlringer < 8 %}
+<p class="ml-5 text-danger">Sie müssen noch {{ neededringer }} Ringer mehr erfassen, um die Kämpfe zu simulieren.</p>
+{% endif %}
+{% if anzahlringer == 8 %}
+<div class="m-5">
+    <a href="{{ url_for('matte1') }}" class="btn btn-success">Kämpfe durchführen</a>
+</div>
+{% endif %}
+
 </body>
 </html>

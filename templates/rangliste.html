@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
-    <title>Gewichterliste</title>
+    <title>Rangliste</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.css') }} ">
 </head>
 <body>
@@ -16,42 +16,44 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link" aria-current="page" href="{{ url_for('hello_post') }}">Home</a>
+          <a class="nav-link" aria-current="page" href="{{ url_for('hello_post') }}">Teilnehmer</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" href="{{ url_for('gewichterliste') }}">Gewichterliste</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{ url_for('matte1') }}">Kämpfe</a>
+          <a class="nav-link active" href="{{ url_for('rangliste') }}">Rangliste</a>
         </li>
       </ul>
     </div>
   </div>
 </nav>
-
-<div class="m-5">
+<div class="ml-5 mt-5">
+    <h1>Rangliste 74kg</h1>
+    {% if rangliste[0][3] == 13 %}
+    <p>Das Turnier ist vorbei! Hier ist die Rangliste:</p>
+</div>
+<div class="ml-5 mr-5" >
     <table class="table table-striped">
         <thead class="thead-dark">
-        <th style="width: 10%" scope="col">Gewichtsklasse</th>
-        <th style="width: 30%" scope="col">Vorname</th>
-        <th style="width: 30%" scope="col">Nachname</th>
+        <th style="width: 10%" scope="col">Rang</th>
+        <th style="width: 30%" scope="col">Name</th>
         <th style="width: 30%" scope="col">Nationalität</th>
         </thead>
         <tbody>
-        {% for eintrag in ringerliste %}
+        {% for eintrag in rangliste %}
             <tr>
                 <td class="vw-2">{{ eintrag[0] }}</td>
                 <td>{{ eintrag[1] }}</td>
                 <td>{{ eintrag[2] }}</td>
-                <td>{{ eintrag[3] }}</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
+    <form method="POST">
+        <input type="submit" class="btn btn-primary mt-1" value="Turnier neu starten!" name="neustart">
+    </form>
+    {% endif %}
+    {% if rangliste[0][3]!= 13 %}
+    <p>Das Turnier ist noch nicht vorbei! Simuliere zuerst die Kämpfe, bevor du die Rangliste sehen kannst.</p>
+    {% endif %}
 </div>
-<div class="m-5">
-    <a href="{{ url_for('matte1') }}" class="btn btn-success">Kämpfe durchführen</a>
-</div>
-
 </body>
 </html>

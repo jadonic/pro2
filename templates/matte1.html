@@ -15,47 +15,74 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link" aria-current="page" href="{{ url_for('hello_post') }}">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{ url_for('gewichterliste') }}">Gewichterliste</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active" href="{{ url_for('matte1') }}">Kämpfe</a>
+          <a class="nav-link" aria-current="page" href=#>Während der Kampfsimulation ist die Navbar deaktiviert!</a>
         </li>
       </ul>
     </div>
   </div>
 </nav>
-
-<div class="row">
-  <div class="d-flex flex-column flex-shrink-0 p-4 bg-light col-md-2" style="width: 280px; height: 100vh;">
-      <hr>
-      <ul class="nav nav-pills flex-column mb-auto">
-        <li class="nav-item">
-          <a href="{{ url_for('matte1') }}" class="nav-link active" aria-current="page">
-            Matte 1
-          </a>
-        </li>
-        <li>
-          <a href="{{ url_for('matte2') }}" class="nav-link link-dark">
-            Matte 2
-          </a>
-        </li>
-        <li>
-          <a href="{{ url_for('matte3') }}" class="nav-link link-dark">
-            Matte 3
-          </a>
-        </li>
-      </ul>
-    </div>
-  <div class="col-md-10"><h1>{{ activewrestler1 }} gegen {{ activewrestler2 }}</h1>
+  <div class="m-5">
     <form method="POST">
-    <div class="form-group">
-        <input type="submit" class="btn btn-primary mt-1" value="Kampf beenden" name="kampfbeenden">
-    </div>
+    {% if kampfid > 0 and kampfid < 113%}
+                {% if buttoneintragen == True %}
+      <h1>Runde {{ runde }}</h1>
+    <table class="table">
+      <thead class="thead-dark">
+      <tr>
+        <th scope="col" class="text-center bg-danger">{{ ringerrot }}</th>
+        <th scope="col" class="text-center">gegen</th>
+        <th scope="col" class="text-center bg-primary">{{ ringerblau }}</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td><input type="number" class="form-control mt-3" id="formGroupExampleInput10" name="punkterot" placeholder="Anzahl Punkte"></td>
+        <td></td>
+        <td><input type="number" class="form-control mt-3" id="formGroupExampleInput11" name="punkteblau" placeholder="Anzahl Punkte"></td>
+
+      </tr>
+      </tbody>
+    </table>
+    <div class="form-group text-center">
+        <input type="submit" class="btn btn-success mt-1" value="daten eintragen" name="dateneintragen">
+      {% endif %}    </div>
+    </form>
+         {% if buttoneintragen == False%}
+    <form method="POST" class="col-12 d-flex justify-content-center">
+      <input type="submit" class="btn btn-primary mt-1" value="Kampf starten / nächster Kampf" name="kampfinitiieren">
+    </form>
+      {% endif %} {% endif %}
   </div>
+{% if kampfid > 112 %}
+<div class="m-5">
+    <p>Alle Kämpfe wurden simuliert! Gehen Sie hier zu Rangliste:</p>
+     <a href="{{ url_for('rangliste') }}" class="btn btn-success">Rangliste</a>
+</div>
+{% endif %}
+  <h1 class="col-12 text-center mt-5">Kampfhistorie</h1>
+<div class="col-12 d-flex justify-content-center" >
+    <table class="table table-striped col-6">
+        <thead class="thead-dark">
+        <th style="width: 10%" scope="col">KampfID</th>
+        <th style="width: 40%" class="text-right bg-danger" scope="col">Ringer rot</th>
+        <th style="width: 5%" class="text-center bg-danger" scope="col">Punkte rot</th>
+        <th style="width: 5%" class="text-center bg-primary" scope="col">Punkte blau</th>
+        <th style="width: 40%" class="bg-primary" scope="col">Ringer blau</th>
+        </thead>
+        <tbody>
+        {% for kampf in kampfhistorie %}
+            <tr>
+                <td>{{ kampf[0] }}</td>
+                <td class="text-right">{{ kampf[1] }}</td>
+                <td class="text-center">{{ kampf[2] }}</td>
+                <td class="text-center">{{ kampf[4] }}</td>
+                <td>{{ kampf[3] }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 </div>
 
+</div>
 </body>
 </html>
