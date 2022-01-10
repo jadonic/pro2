@@ -40,12 +40,15 @@
                 <td class="vw-2">{{ eintrag[0] }}</td>
                 <td>{{ eintrag[1] }}</td>
                 <td>{{ eintrag[2] }}</td>
+                <td><i class="flag {{ flagge }}"></i></td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
     <form method="POST">
-        <input type="submit" class="btn btn-primary mt-1" value="Turnier neu starten!" name="neustart">
+        <a href="{{ url_for('hello_post') }}">
+        <input type="submit" class="btn btn-primary mt-1" value="Turnier neu starten!" name="neustart" formaction="{{ url_for('hello_post') }}">
+        </a>
     </form>
 </div>
 </body>
