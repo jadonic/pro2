@@ -7,7 +7,7 @@ from random import randrange
 
 app = Flask("Hello World")
 
-@app.route("/hello", methods=["GET", "POST"])
+@app.route("/", methods=["GET", "POST"])
 def hello_post():
     r = open("ringerdatenbank.json")
     ringerdatenbank_dict = json.load(r)
@@ -15,9 +15,9 @@ def hello_post():
     t = open("turnierdatenbank.json")
     turnierdatenbank_dict = json.load(t)
 
-    counter = 0
-    loszuteilung = [0]
     aktiveslos = 0
+
+    #Listen für Zufallsringer
     listevornamen = ["Lukas", "Jonas", "Carl", "Hermann", "Paul", "Fabian", "Walter", "Joel", "Pascal", "Renato", "Benjamin", "Michael", "Jürg", "Silvan", "Flavio", "Andreas", "Samuel", "Dominik", "Janis", "Maurus"]
     listenachnamen = ["Müller", "Schmid", "Fischer", "Zimmermann", "Bauer", "Freuler", "Baumgartner", "Stieger", "Meyer", "Scholz", "Vetsch", "Wieland", "Freuler", "Kaiser", "Altmann", "Weber", "Kaufmann", "Wolf", "Knorr", "Zogg"]
     listelaender = ["Schweiz", "Österreich", "Deutschland", "Italien", "Kanada", "Kuba", "China", "Russland", "Georgien", "Argentinien", "Schweden", "Ukraine", "Indien", "Südafrika", "Spanien", "Chile", "Mexiko", "Türkei", "Japan", "Liechtenstein"]
@@ -25,7 +25,7 @@ def hello_post():
 
     if request.method == "POST":
         if request.form.get("eintragen") == "Eintragen":
-            if int(request.form["gewicht"]) < 65:
+            if int(request.form["gewicht"]) < 65: #prüfung ob Minimalgewicht erreicht
                 print("sie sind leider zu leicht, um mitzumachen!")
             elif int(request.form["gewicht"]) > 74:
                 print("sie sind leider zu schwer, um mitzumachen!")
@@ -40,17 +40,16 @@ def hello_post():
                 land = request.form["land"]
                 gewicht = request.form["gewicht"]
                 # zufällige Loszuteilung der ringer, https://stackoverflow.com/questions/3996904/generate-random-integers-between-0-and-9
-                while aktiveslos in loszuteilung:
+                while aktiveslos in turnierdatenbank_dict["gewichtsklassen"][0]["loszuteilung"]:
                     aktiveslos = randrange(1, 100)
-                losnummer = aktiveslos
-                loszuteilung.append(losnummer)
+                    print("ist noch drin")
+                turnierdatenbank_dict["gewichtsklassen"][0]["loszuteilung"].append(aktiveslos)
                 # 1. Eintrag Ringer ins Json übertragen
                 ringerdatenbank_dict.append(
                     {"ringerID": ringerID, "vorname": vorname, "nachname": nachname, "land": land, "turniere": [
-                        {"beispielturnier": {"gewicht": int(gewicht), "losnummer": losnummer, "gewichtsklasse": 74}}]})
+                        {"beispielturnier": {"gewicht": int(gewicht), "losnummer": aktiveslos, "gewichtsklasse": 74}}]})
                 with open('ringerdatenbank.json', 'w') as f:
                     json.dump(ringerdatenbank_dict, f, indent=4, separators=(',', ':'), sort_keys=True)
-                print(loszuteilung)
         if request.form.get("zufaellig") == "Zufälligen Ringer erstellen":
             if ringerdatenbank_dict != []:
                 ringerID = ringerdatenbank_dict[-1]["ringerID"] + 1
@@ -60,32 +59,40 @@ def hello_post():
             nachname = listenachnamen[randrange(0, 19)]
             land = listelaender[randrange(0, 19)]
             gewicht = listegewichter[randrange(0,9)]
-            while aktiveslos in loszuteilung:
+            while aktiveslos in turnierdatenbank_dict["gewichtsklassen"][0]["loszuteilung"]:
                 aktiveslos = randrange(1, 100)
-            losnummer = aktiveslos
-            loszuteilung.append(losnummer)
+            turnierdatenbank_dict["gewichtsklassen"][0]["loszuteilung"].append(aktiveslos)
             # 1. Eintrag Ringer ins Json übertragen
             ringerdatenbank_dict.append(
                 {"ringerID": ringerID, "vorname": vorname, "nachname": nachname, "land": land, "turniere": [
-                    {"beispielturnier": {"gewicht": int(gewicht), "losnummer": losnummer, "gewichtsklasse": 74}}]})
+                    {"beispielturnier": {"gewicht": int(gewicht), "losnummer": aktiveslos, "gewichtsklasse": 74}}]})
             with open('ringerdatenbank.json', 'w') as f:
                 json.dump(ringerdatenbank_dict, f, indent=4, separators=(',', ':'), sort_keys=True)
 
+        if request.form.get("neu") == "Teilnehmer neu eintragen":
+            ringerdatenbank_dict = []
+            turnierdatenbank_dict["gewichtsklassen"][0]["teilnehmer"] = []
+            turnierdatenbank_dict["gewichtsklassen"][0]["loszuteilung"] = []
+
+            with open('ringerdatenbank.json', 'w') as r:
+                json.dump(ringerdatenbank_dict, r, indent=4, separators=(',', ':'), sort_keys=True)
+            with open('turnierdatenbank.json', 'w') as t:
+                json.dump(turnierdatenbank_dict, t, indent=4, separators=(',', ':'))
+
     for ringer in ringerdatenbank_dict:
         # habe ich von https://stackoverflow.com/questions/3897499/check-if-value-already-exists-within-list-of-dictionaries
-        if not any(d["ringerID"] == ringerdatenbank_dict[counter]["ringerID"] for d in
+        if not any(d["ringerID"] == ringer["ringerID"] for d in
                    turnierdatenbank_dict["gewichtsklassen"][0]["teilnehmer"]):
             turnierdatenbank_dict["gewichtsklassen"][0]["teilnehmer"].append(
-                {"ringerID": ringerdatenbank_dict[counter]["ringerID"],
-                 "losnummer": ringerdatenbank_dict[counter]["turniere"][0]["beispielturnier"]["losnummer"],
-                 "vornameNachname": ringerdatenbank_dict[counter]["vorname"] + " " + ringerdatenbank_dict[counter][
-                     "nachname"], "turnierPunkte": 0})
-        counter = counter + 1
+                {"ringerID": ringer["ringerID"],
+                 "losnummer": ringer["turniere"][0]["beispielturnier"]["losnummer"],
+                 "vornameNachname": ringer["vorname"] + " " + ringer["nachname"], "turnierPunkte": 0})
     # sortiert Teilnehmer in der Gewichtsklasse nach der Losnummer, von https://linuxhint.com/sort-json-objects-python/
     turnierdatenbank_dict["gewichtsklassen"][0]["teilnehmer"].sort(key=lambda x: x["losnummer"])
 
     with open('turnierdatenbank.json', 'w') as t:
         json.dump(turnierdatenbank_dict, t, indent=4, separators=(',', ':'))
+
 
     # alle ringer für html in tuple
     ringerindex = 0
@@ -119,63 +126,89 @@ def matte1():
     ringerblau = ""
     sessionid = 0
     kampfhistorie = []
+    siegerfarbe = ""
+    eintragenwarnung = False
     buttoneintragen = False
 
     if request.method == "POST":
-        if request.form.get("kampfinitiieren") == "Kampf starten / nächster Kampf":
-            buttoneintragen = True
-            if turnierdatenbank_dict["rundencounter"] <= 3:
-                turnierdatenbank_dict["kampfcounter"] = turnierdatenbank_dict["kampfcounter"] + 1
-                if turnierdatenbank_dict["kampfcounter"] > 4:
-                    turnierdatenbank_dict["kampfcounter"] = 0
+            if request.form.get("kampfinitiieren") == "Kampf starten / nächster Kampf":
+                buttoneintragen = True
+                if turnierdatenbank_dict["rundencounter"] <= 3:
                     turnierdatenbank_dict["kampfcounter"] = turnierdatenbank_dict["kampfcounter"] + 1
-                    turnierdatenbank_dict["rundencounter"] = turnierdatenbank_dict["rundencounter"] + 1
-                    turnierdatenbank_dict["rundenpunkte"] = turnierdatenbank_dict["rundenpunkte"] * 3
-                    turnierdatenbank_dict["ringerindex"] = 0
+                    if turnierdatenbank_dict["kampfcounter"] > 4:
+                        turnierdatenbank_dict["kampfcounter"] = 0
+                        turnierdatenbank_dict["kampfcounter"] = turnierdatenbank_dict["kampfcounter"] + 1
+                        turnierdatenbank_dict["rundencounter"] = turnierdatenbank_dict["rundencounter"] + 1
+                        turnierdatenbank_dict["rundenpunkte"] = turnierdatenbank_dict["rundenpunkte"] * 3
+                        turnierdatenbank_dict["ringerindex"] = 0
 
-                if turnierdatenbank_dict["rundencounter"] == 2 and turnierdatenbank_dict["kampfcounter"] == 1:
-                    turnierdatenbank_dict["gewichtsklassen"][0]["teilnehmer"].sort(key=lambda x: x["turnierPunkte"])
+                    if turnierdatenbank_dict["rundencounter"] == 2 and turnierdatenbank_dict["kampfcounter"] == 1:
+                        turnierdatenbank_dict["gewichtsklassen"][0]["teilnehmer"].sort(key=lambda x: x["turnierPunkte"])
 
-                if turnierdatenbank_dict["rundencounter"] == 3 and turnierdatenbank_dict["kampfcounter"] == 1:
-                    turnierdatenbank_dict["gewichtsklassen"][0]["teilnehmer"].sort(key=lambda x: runde3sortierung.index(x["turnierPunkte"]))
+                    if turnierdatenbank_dict["rundencounter"] == 3 and turnierdatenbank_dict["kampfcounter"] == 1:
+                        turnierdatenbank_dict["gewichtsklassen"][0]["teilnehmer"].sort(key=lambda x: runde3sortierung.index(x["turnierPunkte"]))
 
-                if turnierdatenbank_dict["kampfcounter"] <= 4:
-                    if turnierdatenbank_dict["kampfcounter"] > 1:
-                        turnierdatenbank_dict["ringerindex"] = turnierdatenbank_dict["ringerindex"] + 2
-                    ringerrot = turnierdatenbank_dict["gewichtsklassen"][0]["teilnehmer"][turnierdatenbank_dict["ringerindex"]]["vornameNachname"]
-                    ringerblau = turnierdatenbank_dict["gewichtsklassen"][0]["teilnehmer"][turnierdatenbank_dict["ringerindex"] + 1]["vornameNachname"]
-                    turnierdatenbank_dict["kampfid"] = turnierdatenbank_dict["kampfid"] + 1
-                    sessionid = sessionid + 1
-            else:
-                turnierdatenbank_dict["gewichtsklassen"][0]["teilnehmer"].sort(
-                    key=lambda x: endsortierung.index(x["turnierPunkte"]))
-            for element in turnierdatenbank_dict["kampfhistorie"]:
-                kampfhistorie.append((element["kampfId"], element["ringerVNrot"], element["punkteRot"], element["ringerVNblau"], element["punkteBlau"]))
+                    if turnierdatenbank_dict["kampfcounter"] <= 4:
+                        if turnierdatenbank_dict["kampfcounter"] > 1:
+                            turnierdatenbank_dict["ringerindex"] = turnierdatenbank_dict["ringerindex"] + 2
+                        ringerrot = turnierdatenbank_dict["gewichtsklassen"][0]["teilnehmer"][turnierdatenbank_dict["ringerindex"]]["vornameNachname"]
+                        ringerblau = turnierdatenbank_dict["gewichtsklassen"][0]["teilnehmer"][turnierdatenbank_dict["ringerindex"] + 1]["vornameNachname"]
+                        turnierdatenbank_dict["kampfid"] = turnierdatenbank_dict["kampfid"] + 1
+                        sessionid = sessionid + 1
+                else:
+                    turnierdatenbank_dict["gewichtsklassen"][0]["teilnehmer"].sort(
+                        key=lambda x: endsortierung.index(x["turnierPunkte"]))
+                for element in turnierdatenbank_dict["kampfhistorie"]:
+                    kampfhistorie.append((element["kampfId"], element["ringerVNrot"], element["punkteRot"],
+                                          element["ringerVNblau"], element["punkteBlau"], element["ringerRot"],
+                                          element["ringerBlau"], element["sieger"]))
 
-        if request.form.get("dateneintragen") == "daten eintragen":
-            buttoneintragen = False
-            sessionid = sessionid + 1
-            if request.form["punkterot"] > request.form["punkteblau"]:
+    if request.form.get("dateneintragen") == "daten eintragen":
+        buttoneintragen = False
+        sessionid = sessionid + 1
+        if int(request.form["punkterot"]) > int(request.form["punkteblau"]):
+            print("Rot hat mehr Punkte", turnierdatenbank_dict["gewichtsklassen"][0]["teilnehmer"][turnierdatenbank_dict["ringerindex"]]["vornameNachname"])
+            siegerfarbe = "rot"
+            sieger = turnierdatenbank_dict["gewichtsklassen"][0]["teilnehmer"][turnierdatenbank_dict["ringerindex"]]["ringerID"]
+            turnierdatenbank_dict["gewichtsklassen"][0]["teilnehmer"][turnierdatenbank_dict["ringerindex"]]["turnierPunkte"] = turnierdatenbank_dict["gewichtsklassen"][0]["teilnehmer"][turnierdatenbank_dict["ringerindex"]]["turnierPunkte"] + turnierdatenbank_dict["rundenpunkte"]
+
+        elif int(request.form["punkteblau"]) > int(request.form["punkterot"]):
+            print("Blau hat mehr Punkte", turnierdatenbank_dict["gewichtsklassen"][0]["teilnehmer"][turnierdatenbank_dict["ringerindex"] + 1]["vornameNachname"])
+            siegerfarbe ="blau"
+            sieger = turnierdatenbank_dict["gewichtsklassen"][0]["teilnehmer"][turnierdatenbank_dict["ringerindex"] + 1]["ringerID"]
+            turnierdatenbank_dict["gewichtsklassen"][0]["teilnehmer"][turnierdatenbank_dict["ringerindex"] + 1]["turnierPunkte"] = \
+            turnierdatenbank_dict["gewichtsklassen"][0]["teilnehmer"][turnierdatenbank_dict["ringerindex"] + 1]["turnierPunkte"] + turnierdatenbank_dict["rundenpunkte"]
+
+        if request.form["punkterot"] == request.form["punkteblau"]:
+            gleichstandssieger = randrange(0, 1)
+            if gleichstandssieger == 0:
                 siegerfarbe = "rot"
-                sieger = turnierdatenbank_dict["gewichtsklassen"][0]["teilnehmer"][turnierdatenbank_dict["ringerindex"]]["ringerID"]
-                turnierdatenbank_dict["gewichtsklassen"][0]["teilnehmer"][turnierdatenbank_dict["ringerindex"]]["turnierPunkte"] = turnierdatenbank_dict["gewichtsklassen"][0]["teilnehmer"][turnierdatenbank_dict["ringerindex"]]["turnierPunkte"] + turnierdatenbank_dict["rundenpunkte"]
-
-            elif request.form["punkteblau"] > request.form["punkterot"]:
-                siegerfarbe ="blau"
-                sieger = turnierdatenbank_dict["gewichtsklassen"][0]["teilnehmer"][turnierdatenbank_dict["ringerindex"] + 1]["ringerID"]
-                turnierdatenbank_dict["gewichtsklassen"][0]["teilnehmer"][turnierdatenbank_dict["ringerindex"] + 1]["turnierPunkte"] = \
-                turnierdatenbank_dict["gewichtsklassen"][0]["teilnehmer"][turnierdatenbank_dict["ringerindex"] + 1]["turnierPunkte"] + turnierdatenbank_dict["rundenpunkte"]
-
-            turnierdatenbank_dict["kampfhistorie"].append(
-                {"kampfId": turnierdatenbank_dict["kampfid"], "ringerBlau": turnierdatenbank_dict["gewichtsklassen"][0]["teilnehmer"][turnierdatenbank_dict["ringerindex"] + 1]["ringerID"], "ringerVNblau": turnierdatenbank_dict["gewichtsklassen"][0]["teilnehmer"][turnierdatenbank_dict["ringerindex"] + 1]["vornameNachname"],
-                 "ringerRot": turnierdatenbank_dict["gewichtsklassen"][0]["teilnehmer"][turnierdatenbank_dict["ringerindex"]]["ringerID"], "ringerVNrot": turnierdatenbank_dict["gewichtsklassen"][0]["teilnehmer"][turnierdatenbank_dict["ringerindex"]]["vornameNachname"],
-                 "punkteRot": request.form["punkterot"], "punkteBlau": request.form["punkteblau"], "sieger": sieger})
-            for element in turnierdatenbank_dict["kampfhistorie"]:
-                kampfhistorie.append((element["kampfId"], element["ringerVNrot"], element["punkteRot"], element["ringerVNblau"], element["punkteBlau"]))
-            if turnierdatenbank_dict["kampfid"] == 112:
-                turnierdatenbank_dict["gewichtsklassen"][0]["teilnehmer"].sort(
-                    key=lambda x: endsortierung.index(x["turnierPunkte"]))
-
+                sieger = \
+                turnierdatenbank_dict["gewichtsklassen"][0]["teilnehmer"][turnierdatenbank_dict["ringerindex"]][
+                    "ringerID"]
+                turnierdatenbank_dict["gewichtsklassen"][0]["teilnehmer"][turnierdatenbank_dict["ringerindex"]][
+                    "turnierPunkte"] = \
+                turnierdatenbank_dict["gewichtsklassen"][0]["teilnehmer"][turnierdatenbank_dict["ringerindex"]][
+                    "turnierPunkte"] + turnierdatenbank_dict["rundenpunkte"]
+            elif gleichstandssieger == 1:
+                siegerfarbe = "blau"
+                sieger = \
+                turnierdatenbank_dict["gewichtsklassen"][0]["teilnehmer"][turnierdatenbank_dict["ringerindex"] + 1][
+                    "ringerID"]
+                turnierdatenbank_dict["gewichtsklassen"][0]["teilnehmer"][turnierdatenbank_dict["ringerindex"] + 1][
+                    "turnierPunkte"] = \
+                    turnierdatenbank_dict["gewichtsklassen"][0]["teilnehmer"][
+                        turnierdatenbank_dict["ringerindex"] + 1]["turnierPunkte"] + turnierdatenbank_dict[
+                        "rundenpunkte"]
+        turnierdatenbank_dict["kampfhistorie"].append(
+            {"kampfId": turnierdatenbank_dict["kampfid"], "ringerBlau": turnierdatenbank_dict["gewichtsklassen"][0]["teilnehmer"][turnierdatenbank_dict["ringerindex"] + 1]["ringerID"], "ringerVNblau": turnierdatenbank_dict["gewichtsklassen"][0]["teilnehmer"][turnierdatenbank_dict["ringerindex"] + 1]["vornameNachname"],
+             "ringerRot": turnierdatenbank_dict["gewichtsklassen"][0]["teilnehmer"][turnierdatenbank_dict["ringerindex"]]["ringerID"], "ringerVNrot": turnierdatenbank_dict["gewichtsklassen"][0]["teilnehmer"][turnierdatenbank_dict["ringerindex"]]["vornameNachname"],
+             "punkteRot": int(request.form["punkterot"]), "punkteBlau": int(request.form["punkteblau"]), "sieger": sieger, "siegerfarbe": siegerfarbe})
+        for element in turnierdatenbank_dict["kampfhistorie"]:
+            kampfhistorie.append((element["kampfId"], element["ringerVNrot"], element["punkteRot"], element["ringerVNblau"], element["punkteBlau"], element["ringerRot"], element["ringerBlau"], element["sieger"]))
+        if turnierdatenbank_dict["kampfid"] == 112:
+            turnierdatenbank_dict["gewichtsklassen"][0]["teilnehmer"].sort(
+                key=lambda x: endsortierung.index(x["turnierPunkte"]))
 
     with open('ringerdatenbank.json', 'w') as r:
         json.dump(ringerdatenbank_dict, r, indent=4, separators=(',', ':'), sort_keys=True)
@@ -183,7 +216,7 @@ def matte1():
         json.dump(turnierdatenbank_dict, t, indent=4, separators=(',', ':'))
 
 
-    return render_template("matte1.html", buttoneintragen=buttoneintragen, kampfhistorie=kampfhistorie, ringerrot=ringerrot, ringerblau=ringerblau, runde=turnierdatenbank_dict["rundencounter"], kampfid=turnierdatenbank_dict["kampfid"])
+    return render_template("matte1.html", eintragenwarnung=eintragenwarnung, buttoneintragen=buttoneintragen, kampfhistorie=kampfhistorie, ringerrot=ringerrot, ringerblau=ringerblau, runde=turnierdatenbank_dict["rundencounter"], kampfid=turnierdatenbank_dict["kampfid"])
 
 
 @app.route("/rangliste", methods=["GET", "POST"])

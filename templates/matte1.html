@@ -36,9 +36,9 @@
       </thead>
       <tbody>
       <tr>
-        <td><input type="number" class="form-control mt-3" id="formGroupExampleInput10" name="punkterot" placeholder="Anzahl Punkte"></td>
+        <td><input type="number" class="form-control mt-3" id="formGroupExampleInput10" name="punkterot" value="0" min="0" max="15"></td>
         <td></td>
-        <td><input type="number" class="form-control mt-3" id="formGroupExampleInput11" name="punkteblau" placeholder="Anzahl Punkte"></td>
+        <td><input type="number" class="form-control mt-3" id="formGroupExampleInput11" name="punkteblau" value="0" min="0" max="15"></td>
 
       </tr>
       </tbody>
@@ -47,11 +47,14 @@
         <input type="submit" class="btn btn-success mt-1" value="daten eintragen" name="dateneintragen">
       {% endif %}    </div>
     </form>
-         {% if buttoneintragen == False%}
+         {% if buttoneintragen == False %}
     <form method="POST" class="col-12 d-flex justify-content-center">
       <input type="submit" class="btn btn-primary mt-1" value="Kampf starten / nächster Kampf" name="kampfinitiieren">
     </form>
       {% endif %} {% endif %}
+      {% if eintragenwarnung == True %}
+      <p class="text-danger">Sie müssen eine Zahl eintragen!</p>
+      {% endif %}
   </div>
 {% if kampfid > 112 %}
 <div class="m-5">
@@ -73,16 +76,15 @@
         {% for kampf in kampfhistorie %}
             <tr>
                 <td>{{ kampf[0] }}</td>
-                <td class="text-right">{{ kampf[1] }}</td>
+                <td class="text-right {{'bg-success2' if kampf[7] == kampf[5] }}">{{ kampf[1] }}</td>
                 <td class="text-center">{{ kampf[2] }}</td>
-                <td class="text-center">{{ kampf[4] }}</td>
-                <td>{{ kampf[3] }}</td>
+                <td class="text-center ">{{ kampf[4] }}</td>
+                <td class="{{'bg-success2' if kampf[7] == kampf[6] }}">{{ kampf[3] }}</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 </div>
-
 </div>
 </body>
 </html>

@@ -485,11 +485,10 @@ mark,
 }
 
 .img-thumbnail {
-  padding: 0.25rem;
+
   background-color: #fff;
-  border: 1px solid #dee2e6;
-  border-radius: 0.25rem;
-  max-width: 100%;
+  border: 0px solid #dee2e6;
+  max-width: 5%;
   height: auto;
 }
 
@@ -6541,6 +6540,10 @@ button.bg-secondary:focus {
 
 .bg-success {
   background-color: #28a745 !important;
+}
+
+.bg-success2 {
+  background-color: #83cf6b !important;
 }
 
 a.bg-success:hover, a.bg-success:focus,

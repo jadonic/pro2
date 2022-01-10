@@ -18,10 +18,9 @@
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="{{ url_for('hello_post') }}">Teilnehmer</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{ url_for('rangliste') }}">Rangliste</a>
-        </li>
+
       </ul>
+
     </div>
   </div>
 </nav>
@@ -30,7 +29,7 @@
     <h1 class="mt-5">Bitte einen Ringer eintragen.</h1>
     <p>Sie können entweder über die Eingabefelder einen Ringer manuell erfassen, oder über den Button "Zufälligen Ringer erstellen" direkt einen eintragen lassen.</p>
 <form method="POST">
-    <div class="form-group row align-items-start">
+    <div class="form-group row align-items-start ">
         <input type="text" class="form-control mt-1 mr-1 col-3" id="formGroupExampleInput1" name="vorname" placeholder="Vorname">
         <input type="text" class="form-control mt-1 col-3" id="formGroupExampleInput2" name="nachname" placeholder="Nachname">
         <input type="text" class="form-control mt-1 mr-5 col-6" id="formGroupExampleInput3" name="land" placeholder="Nationalität">
@@ -71,6 +70,9 @@
 {% endif %}
 {% if anzahlringer == 8 %}
 <div class="m-5">
+    <form method="POST">
+            <input type="submit" class="btn btn-danger mt-1" value="Teilnehmer neu eintragen" name="neu">
+    </form>
     <a href="{{ url_for('matte1') }}" class="btn btn-success">Kämpfe durchführen</a>
 </div>
 {% endif %}

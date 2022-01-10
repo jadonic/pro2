@@ -2,6 +2,7 @@
     "gewichtsklassen":[
         {
             "gewicht":74,
+            "loszuteilung":[],
             "teilnehmer":[]
         }
     ],

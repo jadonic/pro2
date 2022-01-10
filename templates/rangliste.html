@@ -15,9 +15,7 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link" aria-current="page" href="{{ url_for('hello_post') }}">Teilnehmer</a>
-        </li>
+
         <li class="nav-item">
           <a class="nav-link active" href="{{ url_for('rangliste') }}">Rangliste</a>
         </li>
@@ -27,7 +25,6 @@
 </nav>
 <div class="ml-5 mt-5">
     <h1>Rangliste 74kg</h1>
-    {% if rangliste[0][3] == 13 %}
     <p>Das Turnier ist vorbei! Hier ist die Rangliste:</p>
 </div>
 <div class="ml-5 mr-5" >
@@ -50,10 +47,6 @@
     <form method="POST">
         <input type="submit" class="btn btn-primary mt-1" value="Turnier neu starten!" name="neustart">
     </form>
-    {% endif %}
-    {% if rangliste[0][3]!= 13 %}
-    <p>Das Turnier ist noch nicht vorbei! Simuliere zuerst die Kämpfe, bevor du die Rangliste sehen kannst.</p>
-    {% endif %}
 </div>
 </body>
 </html>
