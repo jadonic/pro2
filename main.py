@@ -295,8 +295,9 @@ def rangliste():
                 rangliste.append((rang, name, nationalitaet, punkte))
 
     if request.method == "POST":
-        if request.form.get("neustart") == "Turnier neu starten!":
+        if request.form.get("neustart") == "Datenbanken zurücksetzen":
             turnierdatenbank_dict["gewichtsklassen"][0]["teilnehmer"] = []
+            turnierdatenbank_dict["gewichtsklassen"][0]["loszuteilung"] = []
             turnierdatenbank_dict["kampfhistorie"] = []
             turnierdatenbank_dict["ringerindex"] = 0
             turnierdatenbank_dict["rundencounter"] = 1
@@ -310,7 +311,7 @@ def rangliste():
             with open('turnierdatenbank.json', 'w') as t:
                 json.dump(turnierdatenbank_dict, t, indent=4, separators=(',', ':'))
 
-            return render_template("index.html", anzahlringer=0, ringerliste=[], neededringer=8)
+
 
     return render_template("rangliste.html", rangliste=rangliste)
 

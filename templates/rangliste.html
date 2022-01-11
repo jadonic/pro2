@@ -46,9 +46,8 @@
         </tbody>
     </table>
     <form method="POST">
-        <a href="{{ url_for('hello_post') }}">
-        <input type="submit" class="btn btn-primary mt-1" value="Turnier neu starten!" name="neustart" formaction="{{ url_for('hello_post') }}">
-        </a>
+        <input type="submit" class="btn btn-primary mt-1" value="Datenbanken zurücksetzen" name="neustart">
+        <a href="{{ url_for('hello_post') }}" class="btn btn-danger">Turnier neu starten (nach Datenbanken zurücksetzen!)</a>
     </form>
 </div>
 </body>
