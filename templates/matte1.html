@@ -5,23 +5,14 @@
     <title>Matte 1</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.css') }} ">
 </head>
-<body>
+<body class="bg-primary">
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
   <div class="container-fluid2">
     <a class="navbar-brand" href="#">PROG2 Nicolas Steiger</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link" aria-current="page" href=#>Während der Kampfsimulation ist die Navbar deaktiviert!</a>
-        </li>
-      </ul>
-    </div>
   </div>
 </nav>
-  <div class="m-5">
+<div class="bg-white bg-nicolas m-5 p-5">
+  <div>
     <form method="POST">
     {% if kampfid > 0 and kampfid < 113%}
                 {% if buttoneintragen == True %}
@@ -52,9 +43,6 @@
       <input type="submit" class="btn btn-primary mt-1" value="Kampf starten / nächster Kampf" name="kampfinitiieren">
     </form>
       {% endif %} {% endif %}
-      {% if eintragenwarnung == True %}
-      <p class="text-danger">Sie müssen eine Zahl eintragen!</p>
-      {% endif %}
   </div>
 {% if kampfid > 112 %}
 <div class="m-5">
@@ -62,6 +50,7 @@
      <a href="{{ url_for('rangliste') }}" class="btn btn-success">Rangliste</a>
 </div>
 {% endif %}
+<div class="bg-white bg-nicolas m-5 p-5">
   <h1 class="col-12 text-center mt-5">Kampfhistorie</h1>
 <div class="col-12 d-flex justify-content-center" >
     <table class="table table-striped col-6">
@@ -84,6 +73,8 @@
         {% endfor %}
         </tbody>
     </table>
+</div>
+</div>
 </div>
 </div>
 </body>

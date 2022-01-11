@@ -3,11 +3,9 @@
         {
             "gewicht":74,
             "loszuteilung":[
-
+                0
             ],
-            "teilnehmer":[
-
-            ]
+            "teilnehmer":[]
         }
     ],
     "kampfhistorie":[],

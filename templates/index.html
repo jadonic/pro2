@@ -5,47 +5,39 @@
     <title>Teilnehmer erfassen</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.css') }} ">
 </head>
-<body id=age-top">
+<body class="bg-primary">
 <!-- navbar von https://getbootstrap.com/docs/5.0/components/navbar/ -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-  <div class="container-fluid2">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary col-12">
+  <div class="container-fluid">
     <a class="navbar-brand" href="#">PROG2 Nicolas Steiger</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="{{ url_for('hello_post') }}">Teilnehmer</a>
-        </li>
-
-      </ul>
-
-    </div>
   </div>
 </nav>
+<div class="m-5 p-5 d-flex justify-content-start bg-nicolas bg-white">
 {% if anzahlringer < 8 %}
-<div class="container-fluid">
-    <h1 class="mt-5">Bitte einen Ringer eintragen.</h1>
+<div class="container-fluid col-6">
+    <h1>Ringer eintragen</h1>
     <p>Sie können entweder über die Eingabefelder einen Ringer manuell erfassen, oder über den Button "Zufälligen Ringer erstellen" direkt einen eintragen lassen.</p>
 <form method="POST">
-    <div class="form-group row align-items-start ">
+    <div class="form-group d-flex justify-content-start">
         <input type="text" class="form-control mt-1 mr-1 col-3" id="formGroupExampleInput1" name="vorname" placeholder="Vorname">
-        <input type="text" class="form-control mt-1 col-3" id="formGroupExampleInput2" name="nachname" placeholder="Nachname">
-        <input type="text" class="form-control mt-1 mr-5 col-6" id="formGroupExampleInput3" name="land" placeholder="Nationalität">
-        <input type="text" class="form-control mt-1 col-6" id="formGroupExampleInput4" name="gewicht" placeholder="Gewicht">
-        <input type="submit" class="btn btn-primary mt-1 ml-3" value="Eintragen" name="eintragen">
+        <input type="text" class="form-control mt-1 ml-1 mr-5 col-3" id="formGroupExampleInput2" name="nachname" placeholder="Nachname">
+    </div>
+    <div class="form-group d-flex justify-content-start">
+        <input type="text" class="form-control mr-1 col-3" id="formGroupExampleInput3" name="land" placeholder="Nationalität">
+        <input type="text" class="form-control ml-1 col-3" id="formGroupExampleInput4" name="gewicht" placeholder="Gewicht">
+    </div>
+    <div class="form-group d-flex justify-content-start">
+        <input type="submit" class="btn btn-primary mt-1" value="Eintragen" name="eintragen">
         <p class="m-2 mt-3">oder</p>
         <input type="submit" class="btn btn-danger mt-1" value="Zufälligen Ringer erstellen" name="zufaellig">
     </div>
 </form>
 </div>
 {% endif %}
-<div class="ml-5 mt-5">
+<div class="col-6">
     <h1>Gewichtsklasse 74kg</h1>
     <p>Es sind {{ anzahlringer }} von 8 Ringer erfasst!</p>
-</div>
-<div class="ml-5 mr-5 col-6">
+<div>
     <table class="table table-striped">
         <thead class="thead-dark">
         <th style="width: 10%" scope="col">Losnummer</th>
@@ -66,16 +58,17 @@
     </table>
 </div>
 {% if anzahlringer < 8 %}
-<p class="ml-5 text-danger">Sie müssen noch {{ neededringer }} Ringer mehr erfassen, um die Kämpfe zu simulieren.</p>
+<p class="text-danger">Sie müssen noch {{ neededringer }} Ringer mehr erfassen, um die Kämpfe zu simulieren.</p>
 {% endif %}
-{% if anzahlringer == 8 %}
-<div class="m-5">
+{% if anzahlringer >= 8 %}
+<div class="d-flex justify-content-start">
     <form method="POST">
-            <input type="submit" class="btn btn-danger mt-1" value="Teilnehmer neu eintragen" name="neu">
+            <input type="submit" class="btn btn-danger mr-1" value="Teilnehmer neu eintragen" name="neu">
     </form>
-    <a href="{{ url_for('matte1') }}" class="btn btn-success">Kämpfe durchführen</a>
+    <a href="{{ url_for('matte1') }}" class="btn btn-success ml-1">Kämpfe durchführen</a>
 </div>
 {% endif %}
-
+</div>
+</div>
 </body>
 </html>

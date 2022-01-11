@@ -82,7 +82,7 @@ def hello_post():
                 "neu") == "Teilnehmer neu eintragen":  # falls alle Teilnehmer gelöscht und neu eingetragen werden sollen
             ringerdatenbank_dict = []
             turnierdatenbank_dict["gewichtsklassen"][0]["teilnehmer"] = []
-            turnierdatenbank_dict["gewichtsklassen"][0]["loszuteilung"] = []
+            turnierdatenbank_dict["gewichtsklassen"][0]["loszuteilung"] = [0]
 
             # alle Änderungen ins Json übernehmen
             with open('ringerdatenbank.json', 'w') as r:
@@ -297,7 +297,7 @@ def rangliste():
     if request.method == "POST":
         if request.form.get("neustart") == "Datenbanken zurücksetzen":
             turnierdatenbank_dict["gewichtsklassen"][0]["teilnehmer"] = []
-            turnierdatenbank_dict["gewichtsklassen"][0]["loszuteilung"] = []
+            turnierdatenbank_dict["gewichtsklassen"][0]["loszuteilung"] = [0,]
             turnierdatenbank_dict["kampfhistorie"] = []
             turnierdatenbank_dict["ringerindex"] = 0
             turnierdatenbank_dict["rundencounter"] = 1

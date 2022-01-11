@@ -5,42 +5,28 @@
     <title>Rangliste</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.css') }} ">
 </head>
-<body>
+<body class="bg-primary">
 <!-- navbar von https://getbootstrap.com/docs/5.0/components/navbar/ -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
   <div class="container-fluid2">
     <a class="navbar-brand" href="#">PROG2 Nicolas Steiger</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-
-        <li class="nav-item">
-          <a class="nav-link active" href="{{ url_for('rangliste') }}">Rangliste</a>
-        </li>
-      </ul>
-    </div>
   </div>
 </nav>
-<div class="ml-5 mt-5">
+<div class="bg-white bg-nicolas m-5 p-5">
     <h1>Rangliste 74kg</h1>
     <p>Das Turnier ist vorbei! Hier ist die Rangliste:</p>
-</div>
-<div class="ml-5 mr-5" >
     <table class="table table-striped">
         <thead class="thead-dark">
-        <th style="width: 10%" scope="col">Rang</th>
-        <th style="width: 30%" scope="col">Name</th>
-        <th style="width: 30%" scope="col">Nationalität</th>
+        <th>Rang</th>
+        <th>Name</th>
+        <th>Nationalität</th>
         </thead>
         <tbody>
         {% for eintrag in rangliste %}
             <tr>
-                <td class="vw-2">{{ eintrag[0] }}</td>
+                <td>{{ eintrag[0] }}</td>
                 <td>{{ eintrag[1] }}</td>
                 <td>{{ eintrag[2] }}</td>
-                <td><i class="flag {{ flagge }}"></i></td>
             </tr>
         {% endfor %}
         </tbody>
