@@ -19,17 +19,17 @@
     <p>Sie können entweder über die Eingabefelder einen Ringer manuell erfassen, oder über den Button "Zufälligen Ringer erstellen" direkt einen eintragen lassen.</p>
 <form method="POST">
     <div class="form-group d-flex justify-content-start">
-        <input type="text" class="form-control mt-1 mr-1 col-3" id="formGroupExampleInput1" name="vorname" placeholder="Vorname">
-        <input type="text" class="form-control mt-1 ml-1 mr-5 col-3" id="formGroupExampleInput2" name="nachname" placeholder="Nachname">
+        <input type="text" class="form-control mt-1 mr-1 col-3 bg-nicolas" id="formGroupExampleInput1" name="vorname" placeholder="Vorname">
+        <input type="text" class="form-control mt-1 ml-1 mr-5 col-3 bg-nicolas" id="formGroupExampleInput2" name="nachname" placeholder="Nachname">
     </div>
     <div class="form-group d-flex justify-content-start">
-        <input type="text" class="form-control mr-1 col-3" id="formGroupExampleInput3" name="land" placeholder="Nationalität">
-        <input type="text" class="form-control ml-1 col-3" id="formGroupExampleInput4" name="gewicht" placeholder="Gewicht">
+        <input type="text" class="form-control mr-1 col-3 bg-nicolas" id="formGroupExampleInput3" name="land" placeholder="Nationalität">
+        <input type="text" class="form-control ml-1 col-3 bg-nicolas" id="formGroupExampleInput4" name="gewicht" placeholder="Gewicht">
     </div>
     <div class="form-group d-flex justify-content-start">
-        <input type="submit" class="btn btn-primary mt-1" value="Eintragen" name="eintragen">
+        <input type="submit" class="btn btn-primary mt-1 bg-nicolas" value="Eintragen" name="eintragen">
         <p class="m-2 mt-3">oder</p>
-        <input type="submit" class="btn btn-danger mt-1" value="Zufälligen Ringer erstellen" name="zufaellig">
+        <input type="submit" class="btn btn-danger mt-1 bg-nicolas" value="Zufälligen Ringer erstellen" name="zufaellig">
     </div>
 </form>
 </div>
@@ -63,9 +63,9 @@
 {% if anzahlringer >= 8 %}
 <div class="d-flex justify-content-start">
     <form method="POST">
-            <input type="submit" class="btn btn-danger mr-1" value="Teilnehmer neu eintragen" name="neu">
+            <input type="submit" class="btn btn-danger mr-1 bg-nicolas" value="Teilnehmer neu eintragen" name="neu">
     </form>
-    <a href="{{ url_for('matte1') }}" class="btn btn-success ml-1">Kämpfe durchführen</a>
+    <a href="{{ url_for('matte1') }}" class="btn btn-success ml-1 bg-nicolas">Kämpfe durchführen</a>
 </div>
 {% endif %}
 </div>
