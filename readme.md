@@ -1,70 +1,72 @@
-# PROG-2 Projekt Nicolas Steiger
+# PROG-2 Project Nicolas Steiger
 
-Als mein PROG-2 Projekt simuliere ich ein Ringerturnier. Um es möglichst einfach zu halten besteht das Ringerturnier aus lediglich einer Gewichtsklasse. Wie an internationalen Turnieren üblich besteht eine Gewichtsklasse aus acht Teilnehmern.
+As my PROG-2 project I simulate a wrestling tournament. To keep it as simple as possible the wrestling tournament consists of only one weight class. As usual at international tournaments a weight class consists of eight participants.
 
-## Teilnehmer erfassen
+## Create participant
 
-Als erstes wird ein neuer Teilnehmer angelegt. Dies kann man über die angezeigten Inputfelder, wobei wichtig ist, dass sämtliche Felder ausgefüllt werden. Mit dem Button "Eintragen" wird der Teilnehmer eingetragen. Wenn man möchte, kann man auch einen zufälligen Ringer generieren. Dieser wird aus einer Auswahl von 20 Vornamen, 20 Nachnamen, 20 Ländern und 10 Gewichten zufällig zusammengesetzt.
+The first step is to create a new participant. This can be done by using the displayed input fields. It is important that all fields are filled in. With the button "Enter" the participant is entered. If you want, you can also generate a random wrestler. This will be randomly composed from a selection of 20 first names, 20 last names, 20 countries and 10 weights.
 
-Bei der Eintragung wird automatisch ein zufälliges Los zwischen 1 und 99 zugeteilt. Dieser Vorgang simuliert die Losziehung während der Abwaage bei einem realen Turnier. Das Los dient (wie bei einem echten Turnier) als Grundlage für die erste Kampfeinteilung. 
+When the entry is made, a random lot between 1 and 99 is automatically assigned. This process simulates the drawing of lots during the weigh-in at a real tournament. The lot is used (as in a real tournament) as the basis for the initial division of fights. 
 
-Für das Beginnen der Kampfsimulation **müssen** acht Teilnehmer erfasst werden. Vor der Kampfsimulation kann die Teilnehmerliste bei Bedarf gelöscht und neu erstellt werden.
+To start the fight simulation **eight participants must be entered**. Before the fight simulation, the list of participants can be deleted and recreated if necessary.
 
-## Kampfsimulation
-Das Turnier funktioniert im Poolsystem. Die Gewinner der 1. Runde landen im Gewinner- und die Verlierer der 1. Runde landen im Verliererpool. Ein Gewinner der 2. Runde muss gegen den anderen Gewinner des entsprechenden Pools kämpfen. Bei den Verlierern der 2. Runde dasselbe. Nach der Austragung der Kämpfe in der 3. Runde steht die Reihenfolge und somit die Rangliste bereits fest.
+## Combat simulation
+The tournament works in a pool system. The winners of the 1st round end up in the winner pool and the losers of the 1st round end up in the loser pool. A winner of the 2nd round has to fight against the other winner of the corresponding pool. The same for the losers of the 2nd round. After the fights in the 3rd round the order and therefore the ranking is already fixed.
 
-![Screenshot Turnierlogik](/assets/images/ScreenshotTurnierlogik.jpg)
+![Screenshot tournament logic](/assets/images/ScreenshotTurnierlogik.jpg)
 
-### Regeln 
-Bei einem Ringerkampf gewinnt der Teilnehmer, der nach Ablauf der Zeit mehr Punkte hat, oder es während dem Kampf schafft, 15 Punkte unterschied zum Gegner aufzubauen (z.B. 15:0 oder 18:3). In der Praxis geht ein einzelner Punktestand selten bis gar nie über 30 Punkte, deshalb wurde im Programm diese Punktelimite gesetzt.
+### Rules 
+In a wrestling match, the winner is the participant who has more points at the end of the time, or who manages to build up a 15-point difference over his opponent during the match (e.g. 15:0 or 18:3). In practice, a single score rarely if ever exceeds 30 points, so this score limit was set in the program.
 
-In der Simulation können wir also die jeweiligen Punkte der Ringer und damit den Sieger eines Kampfes erfassen. Ob der Kampf während der Kampfzeit oder mit Ablauf dessen beendet wurde ist dabei irrelevant. 
+So in the simulation we can record the respective points of the wrestlers and thus the winner of a match. It is irrelevant whether the fight was finished during the fighting time or at the end of it. 
 
-#### Gleichstand
-Obwohl eher selten, kann es vorkommen, dass ein Kampf mit der gleichen Punktzahl beendet wird. In der Praxis kommen in diesem Fall verschiedene Regeln zum Zug:
-* Anzahl Strafpunkte
-* Höhe der einzelnen Wertungen
-* wer den letzen Punkt gemacht hat
+#### Tie
+Although rather rare, it can happen that a fight ends with the same number of points. In practice, several rules come into play in this case:
+* Number of penalty points
+* amount of the individual scores
+* who made the last point
 
-**Es gibt also IMMER einen Sieger.** In der Kampfsimulation wird bei einem Gleichstand deshalb ein zufälliger Sieger ausgewählt.
+**There is therefore ALWAYS a winner.** In the fight simulation, in the event of a tie, a random winner is therefore selected.
 
-## Rangliste und Neustart
-Die Rangliste ist relativ selbsterklärend. Die Ringer werden anhand ihrer Punktzahl aufsteigend sortiert und in der Liste eingeordnet. 
+## Ranking list and restart
+The ranking list is relatively self-explanatory. The wrestlers are sorted in ascending order based on their score and ranked in the list. 
 
-Bei Bedarf hat man die Möglichkeit, sämtliche Datenbanken zurückzusetzen und anschliessend das Ringerturnier neu zu starten.
+If necessary, you have the possibility to reset all databases and then restart the wrestling tournament.
 
-## Json Ringerdatenbank und Turnierdatenbank
-### Ringerdatenbank
-Die Ringerdatenbank ist so aufgebaut, dass  sie einerseits die Grundinformationen über einen Ringer speichert, sowie die Daten an Turnieren, die er gewesen ist. 
+## Json wrestler database and tournament database
+### Wrestler database
+The wrestling database is designed to store basic information about a wrestler, as well as the data on tournaments he has been to. 
 
-#### Grundinformationen
+#### Basic information
 
-* ringerID
-* vorname
-* nachname
-* land
+* wrestlerID
+* first name
+* surname
+* country
 
-#### Turnierdaten
+#### tournament data
 
-* gewicht
-* gewichtsklasse
-* losnummer
+* weight
+* weight class
+* lot number
 
-Diese Datenbank wurde bewusst so simpel gehalten, mit dem Hintergrund, dass Sie jederzeit ausgebaut werden kann, falls weiter am Projekt gearbeitet werden würde.
+This database was deliberately kept simple, with the background that it can be expanded at any time, if further work on the project would be.
 
-### Turnierdatenbank
-Die Turnierdatenbank ist eine Temporäre Datenbank, welche das jeweils laufende Turnier abbildet. In dieser Datenbank sind einerseits Grundinformationen über das Turnier vorhanden
+### Tournament database
+The tournament database is a temporary database that represents the current tournament. On the one hand, this database contains basic information about the tournament
 
-* Turniername
-* Gewichtsklassen
-* Kampfhistorie
+* Tournament name
+* weight classes
+* fight history
 
-und andererseits Werte, welche für die Kampflogik abgespeichert werden müssen:
+and on the other hand values, which must be stored for the fight logic:
 
-* ringerindex
-* rundencounter
-* kampfcounter
-* rundenpunkte
-* kampfid
+* wrestlerindex
+* round counter
+* fight counter
+* round points
+* fightid
 
-Diese Datenbank wurde mit der Aussicht konzipiert, dass bei einer Funktionserweiterung statt nur ein Turnier mehrere Turniere in einer Art "Turnierverlauf" gespeichert werden können.
+This database was designed with the prospect that, if the function is expanded, instead of just one tournament, several tournaments can be stored in a kind of "tournament history".
+
+Translated with www.DeepL.com/Translator (free version)
