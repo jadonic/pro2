@@ -1,40 +1,39 @@
-<!DOCTYPE html>
-<html lang="de">
-<head>
-    <meta charset="UTF-8">
-    <title>Rangliste</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.css') }} ">
-</head>
-<body class="bg-primary">
+{% include "html_head.html" %}
+
+<body class="bg-dark">
 <!-- navbar von https://getbootstrap.com/docs/5.0/components/navbar/ -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-  <div class="container-fluid2">
-    <a class="navbar-brand" href="#">PROG2 Nicolas Steiger</a>
-  </div>
-</nav>
-<div class="bg-white bg-nicolas m-5 p-5">
-    <h1>Rangliste 74kg</h1>
-    <p>Das Turnier ist vorbei! Hier ist die Rangliste:</p>
-    <table class="table table-striped">
-        <thead class="thead-dark">
-        <th>Rang</th>
-        <th>Name</th>
-        <th>Nationalität</th>
-        </thead>
-        <tbody>
-        {% for eintrag in rangliste %}
-            <tr>
-                <td>{{ eintrag[0] }}</td>
-                <td>{{ eintrag[1] }}</td>
-                <td>{{ eintrag[2] }}</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-    <form method="POST">
-        <input type="submit" class="btn btn-primary mt-1" value="Datenbanken zurücksetzen" name="neustart">
-        <a href="{{ url_for('hello_post') }}" class="btn btn-danger">Turnier neu starten (nach Datenbanken zurücksetzen!)</a>
-    </form>
-</div>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container-fluid2">
+        <a class="navbar-brand" href="#">PROG2 Nicolas Steiger</a>
+      </div>
+    </nav>
+    <div class="m-5 p-5 d-flex justify-content-start bg-nicolas bg-white">
+                <div class="container-fluid bg-nicolas2 col-6 p-5">
+                <h1>Rangliste 74kg</h1>
+                <p>Das Turnier ist vorbei! Hier ist die Rangliste:</p>
+                <table class="table table-striped">
+                    <thead class="thead-dark">
+                    <th>Rang</th>
+                    <th>Name</th>
+                    <th>Nationalität</th>
+                    </thead>
+                    <tbody>
+                    {% for eintrag in rangliste %}
+                        <tr>
+                            <td>{{ eintrag[0] }}</td>
+                            <td>{{ eintrag[1] }}</td>
+                            <td>{{ eintrag[2] }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                <form method="POST">
+                    <input type="submit" class="btn btn-primary bg-nicolas bg-nicolas3" value="Datenbanken zurücksetzen" name="neustart">
+                    <a href="{{ url_for('hello_post') }}" class="btn btn-danger bg-nicolas bg-nicolas3">Turnier neu starten (nach Datenbanken zurücksetzen!)</a>
+                </form>
+                </div>
+            </div>
+    </div>
+
 </body>
 </html>
