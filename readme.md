@@ -9,6 +9,8 @@ The first step is to create a new participant. This can be done by using the dis
 When the entry is made, a random lot between 1 and 99 is automatically assigned. This process simulates the drawing of lots during the weigh-in at a real tournament. The lot is used (as in a real tournament) as the basis for the initial division of fights. 
 
 To start the fight simulation **eight participants must be entered**. Before the fight simulation, the list of participants can be deleted and recreated if necessary.
+## Weight limits
+In wrestling, each weight class has a lower and an upper limit. So you can't be too light or too heavy for it. For the 74kg weight class, the lower weight limit is 65kg and the upper weight limit is 74kg. These limits have been set accordingly in the relevant html element.
 
 ## Combat simulation
 The tournament works in a pool system. The winners of the 1st round end up in the winner pool and the losers of the 1st round end up in the loser pool. A winner of the 2nd round has to fight against the other winner of the corresponding pool. The same for the losers of the 2nd round. After the fights in the 3rd round the order and therefore the ranking is already fixed.
@@ -68,5 +70,3 @@ and on the other hand values, which must be stored for the fight logic:
 * fightid
 
 This database was designed with the prospect that, if the function is expanded, instead of just one tournament, several tournaments can be stored in a kind of "tournament history".
-
-Translated with www.DeepL.com/Translator (free version)
