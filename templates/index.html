@@ -20,7 +20,7 @@
                     </div>
                     <div class="form-group d-flex justify-content-start">
                         <input type="text" class="form-control mr-1 col-6 bg-nicolas bg-nicolas3" id="formGroupExampleInput3" name="land" placeholder="Nationalität">
-                        <input type="text" class="form-control ml-1 col-6 bg-nicolas bg-nicolas3" id="formGroupExampleInput4" name="gewicht" placeholder="Gewicht">
+                        <input type="number" class="form-control ml-1 col-6 bg-nicolas bg-nicolas3" id="formGroupExampleInput4" name="gewicht" min="65" max="74" placeholder="Gewicht">
                     </div>
                     <div class="form-group d-flex justify-content-center">
                         <input type="submit" class="btn btn-primary mt-1 bg-nicolas bg-nicolas3" value="Eintragen" name="eintragen">
@@ -70,4 +70,6 @@
         </div>
     </div>
 </body>
+{% include "html_footer.html" %}
+
 </html>
